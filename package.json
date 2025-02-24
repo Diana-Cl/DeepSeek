@@ -2,6 +2,7 @@
   "name": "DeepSeek",
   "version": "1.0.0",
   "description": "A clean repository ",
+  "type": "module",
   "scripts": {
     "format:js": "prettier --write **/*.{js,json,html,css,yml}",
     "lint:js": "eslint --fix **/*.js",
