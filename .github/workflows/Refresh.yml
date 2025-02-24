@@ -1,0 +1,68 @@
+name: Format and Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  create:
+  workflow_dispatch:
+
+jobs:
+  format-and-lint:
+    name: Format & Lint
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        language: [python, javascript]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        if: matrix.language == 'python'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Set up Node.js
+        if: matrix.language == 'javascript'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Python tools
+        if: matrix.language == 'python'
+        run: pip install black ruff
+
+      - name: Install JavaScript tools
+        if: matrix.language == 'javascript'
+        run: npm install
+
+      - name: Run Formatting and Linting for Python
+        if: matrix.language == 'python'
+        run: |
+          npm run format:py
+          npm run lint:py
+
+      - name: Run Formatting and Linting for JavaScript
+        if: matrix.language == 'javascript'
+        run: |
+          npm run format:js
+          npm run lint:js
+
+      - name: Commit changes
+        run: |
+          git config user.name "actions-user"
+          git config user.email "actions-user@example.com"
+          git add -A
+          if [[ -n $(git status --porcelain) ]]; then
+            git commit -m "style: apply formatting and linting" -m "Formatted with Prettier/Black and linted with ESLint/Ruff" --author="Diana-Cl <your-email@example.com>"
+            git push
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
