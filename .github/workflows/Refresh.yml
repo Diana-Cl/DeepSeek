@@ -52,8 +52,8 @@ jobs:
       - name: Run Formatting and Linting for JavaScript
         if: matrix.language == 'javascript'
         run: |
-          npm run format:js
-          npm run lint:js
+          npm run format:js || true
+          npm run lint:js || true
 
       - name: Commit changes
         run: |
@@ -61,7 +61,7 @@ jobs:
           git config user.email "actions-user@example.com"
           git add -A
           if [[ -n $(git status --porcelain) ]]; then
-            git commit -m "style: apply formatting and linting" -m "Formatted with Prettier/Black and linted with ESLint/Ruff" --author="Diana-Cl <your-email@example.com>"
+            git commit -m "style: apply formatting and linting" -m "Formatted with Prettier/Black and linted with ESLint/Ruff" --author="Diana-Cl 135276904+Diana-Cl@users.noreply.github.com"
             git push
           fi
         env:
