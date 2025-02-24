@@ -33,11 +33,7 @@
     ],
     "rules": [
       {
-        "domain": [
-          "oo9fr9c1tq8p-kwew5at",
-          "trbzt48tky-gl18ytn95",
-          "u78rtunf3wfwmlu3m0ft"
-        ],
+        "domain": ["oo9fr9c1tq8p-kwew5at", "trbzt48tky-gl18ytn95", "u78rtunf3wfwmlu3m0ft"],
         "server": "dns-direct"
       },
       {
@@ -50,33 +46,18 @@
         "server": "dns-direct"
       },
       {
-        "rule_set": [
-          "geoip-ir",
-          "geosite-ir"
-        ],
+        "rule_set": ["geoip-ir", "geosite-ir"],
         "server": "dns-direct"
       }
     ],
     "final": "dns-remote",
     "static_ips": {
-      "9l7cdqpcokygdlfkmgxc": [
-        "2606:4700:d0:0:1951:3e78:7443:6b91"
-      ],
-      "hc7yu_4ah82iydyt2ple": [
-        "2606:4700:d1:0:3734:b4e0:a684:f4cb"
-      ],
-      "n-1hmjwskffy_m2bsmnc": [
-        "2606:4700:d0:0:ff30:75ac:683e:8e26"
-      ],
-      "oo9fr9c1tq8p-kwew5at": [
-        "188.114.96.32"
-      ],
-      "trbzt48tky-gl18ytn95": [
-        "188.114.97.230"
-      ],
-      "u78rtunf3wfwmlu3m0ft": [
-        "162.159.193.224"
-      ]
+      "9l7cdqpcokygdlfkmgxc": ["2606:4700:d0:0:1951:3e78:7443:6b91"],
+      "hc7yu_4ah82iydyt2ple": ["2606:4700:d1:0:3734:b4e0:a684:f4cb"],
+      "n-1hmjwskffy_m2bsmnc": ["2606:4700:d0:0:ff30:75ac:683e:8e26"],
+      "oo9fr9c1tq8p-kwew5at": ["188.114.96.32"],
+      "trbzt48tky-gl18ytn95": ["188.114.97.230"],
+      "u78rtunf3wfwmlu3m0ft": ["162.159.193.224"]
     },
     "independent_cache": true
   },
@@ -144,10 +125,7 @@
     {
       "type": "wireguard",
       "tag": "Tehran-a § 0",
-      "local_address": [
-        "172.16.0.2/24",
-        "2606:4700:110:8972:1ba9:1af8:bd84:826d/128"
-      ],
+      "local_address": ["172.16.0.2/24", "2606:4700:110:8972:1ba9:1af8:bd84:826d/128"],
       "private_key": "GMDQsZlNwvzojJ349tKz6CjFhFp4VAD8oI35xIhDkGA=",
       "server": "u78rtunf3wfwmlu3m0ft",
       "server_port": 8854,
@@ -163,10 +141,7 @@
       "type": "wireguard",
       "tag": "Berlin-a § 1",
       "detour": "Tehran-a § 0",
-      "local_address": [
-        "172.16.0.2/24",
-        "2606:4700:110:8474:3e6b:fc93:6007:fc66/128"
-      ],
+      "local_address": ["172.16.0.2/24", "2606:4700:110:8474:3e6b:fc93:6007:fc66/128"],
       "private_key": "GJ6QWVh6xfwqRXLZI7X/2wPWHZagHPUUH/RWTj+U2G8=",
       "server": "9l7cdqpcokygdlfkmgxc",
       "server_port": 1387,
@@ -178,10 +153,7 @@
     {
       "type": "wireguard",
       "tag": "Tehran-b § 2",
-      "local_address": [
-        "172.16.0.2/24",
-        "2606:4700:110:8660:d448:ef71:2ef0:4260/128"
-      ],
+      "local_address": ["172.16.0.2/24", "2606:4700:110:8660:d448:ef71:2ef0:4260/128"],
       "private_key": "+GZFyO+lqnulhAaQiSOGJ6MWVyRKH3MKItaU+PYMMWw=",
       "server": "oo9fr9c1tq8p-kwew5at",
       "server_port": 1070,
@@ -197,10 +169,7 @@
       "type": "wireguard",
       "tag": "Berlin-b § 3",
       "detour": "Tehran-b § 2",
-      "local_address": [
-        "172.16.0.2/24",
-        "2606:4700:110:8fae:1b01:d428:a3f0:8851/128"
-      ],
+      "local_address": ["172.16.0.2/24", "2606:4700:110:8fae:1b01:d428:a3f0:8851/128"],
       "private_key": "0BW4ElW756kyA+nx44iZZ/PU8xgRoE/bab2CSkWXPEo=",
       "server": "hc7yu_4ah82iydyt2ple",
       "server_port": 3476,
@@ -212,10 +181,7 @@
     {
       "type": "wireguard",
       "tag": "Tehran-c § 4",
-      "local_address": [
-        "172.16.0.2/24",
-        "2606:4700:110:8293:26a0:9afd:fb75:57cd/128"
-      ],
+      "local_address": ["172.16.0.2/24", "2606:4700:110:8293:26a0:9afd:fb75:57cd/128"],
       "private_key": "CIU8ZlT+qLFyXHzaYVmOdD9ClrIKET9KsY+IAB3x/Uk=",
       "server": "trbzt48tky-gl18ytn95",
       "server_port": 1010,
@@ -231,10 +197,7 @@
       "type": "wireguard",
       "tag": "Berlin-c § 5",
       "detour": "Tehran-c § 4",
-      "local_address": [
-        "172.16.0.2/24",
-        "2606:4700:110:84b5:49c:e45a:5013:2e4f/128"
-      ],
+      "local_address": ["172.16.0.2/24", "2606:4700:110:84b5:49c:e45a:5013:2e4f/128"],
       "private_key": "QFahQx5oN2Xhrze2/Int20nRaNyLb0FFrSrz+vOcVXU=",
       "server": "n-1hmjwskffy_m2bsmnc",
       "server_port": 1843,
@@ -252,12 +215,12 @@
       "tag": "direct"
     },
     {
-       "type": "direct",
-       "tag": "direct-fragment",
-       "tls_fragment": {
-         "enabled": true,
-         "size": "10-30",
-         "sleep": "2-8"
+      "type": "direct",
+      "tag": "direct-fragment",
+      "tls_fragment": {
+        "enabled": true,
+        "size": "10-30",
+        "sleep": "2-8"
       }
     },
     {
@@ -289,10 +252,7 @@
         "outbound": "direct"
       },
       {
-        "rule_set": [
-          "geoip-ir",
-          "geosite-ir"
-        ],
+        "rule_set": ["geoip-ir", "geosite-ir"],
         "outbound": "direct"
       }
     ],
