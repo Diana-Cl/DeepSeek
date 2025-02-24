@@ -11,7 +11,10 @@ export default [
     languageOptions: {
       ecmaVersion: 2020,
       sourceType: "module",
-      globals: { ...globals.node }
+      globals: {
+        ...globals.node, 
+        ...globals.browser
+      },
     },
     rules: {
       "semi": ["error", "always"],
