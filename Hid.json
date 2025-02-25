@@ -124,7 +124,7 @@
       "detour": "Tehran-a § 0",
       "local_address": ["172.16.0.2/24", "2606:4700:110:8b2e:29d6:466d:2066:a06/128"],
       "private_key": "AHzH5Oc8T2x6XN29Brk7uJt1HmhwgLWT0rSt8uBWXEo=",
-      "server": "plkmc6gfqrcrtcjzgsoq",
+      "server": "[2606:4700:d0::eaf0:3b08:9cac:f717]",
       "server_port": 4500,
       "peer_public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
       "reserved": "kZYm",
