@@ -84,7 +84,7 @@ jobs:
           git config --local user.email "actions-user@gmail.com"
           git add -A
           if [[ -n $(git status --porcelain) ]]; then
-            git diff --quiet && git diff --staged --quiet || git commit -m "style: apply formatting and linting" -m "Formatted with Prettier/Black and linted with ESLint/Ruff" --author="Diana-Cl <135276904+Diana-Cl@users.noreply.github.com>"
+            git diff --quiet && git diff --staged --quiet || git commit -m "style: apply formatting and linting---Formatted with Prettier/Black and linted with ESLint/Ruff" -m "Prettified Code!"
             git push
           fi
         continue-on-error: true
