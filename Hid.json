@@ -46,21 +46,14 @@
         "server": "dns-direct"
       },
       {
-        "rule_set": [
-          "geoip-ir",
-          "geosite-ir"
-        ],
+        "rule_set": ["geoip-ir", "geosite-ir"],
         "server": "dns-direct"
       }
     ],
     "final": "dns-remote",
     "static_ips": {
-      "plkmc6gfqrcrtcjzgsoq": [
-        "2606:4700:d1:0:504d:1f21:212c:e0f0"
-      ],
-      "zzq4dz7bonfjq3lxjsyw": [
-        "162.159.195.33"
-      ]
+      "plkmc6gfqrcrtcjzgsoq": ["2606:4700:d1:0:504d:1f21:212c:e0f0"],
+      "zzq4dz7bonfjq3lxjsyw": ["162.159.195.33"]
     },
     "independent_cache": true
   },
@@ -96,21 +89,14 @@
     {
       "type": "selector",
       "tag": "select",
-      "outbounds": [
-        "auto",
-        "Tehran-a § 0",
-        "Berlin-a § 1"
-      ],
+      "outbounds": ["auto", "Tehran-a § 0", "Berlin-a § 1"],
       "default": "auto",
       "interrupt_exist_connections": true
     },
     {
       "type": "urltest",
       "tag": "auto",
-      "outbounds": [
-        "Tehran-a § 0",
-        "Berlin-a § 1"
-      ],
+      "outbounds": ["Tehran-a § 0", "Berlin-a § 1"],
       "url": "http://www.gstatic.com/generate_204",
       "interval": "10m0s",
       "tolerance": 1,
@@ -120,10 +106,7 @@
     {
       "type": "wireguard",
       "tag": "Tehran-a § 0",
-      "local_address": [
-        "172.16.0.2/24",
-        "2606:4700:110:809f:775e:cbec:5c6d:d7b5/128"
-      ],
+      "local_address": ["172.16.0.2/24", "2606:4700:110:809f:775e:cbec:5c6d:d7b5/128"],
       "private_key": "8NFBgbhxyzveYYBMDf2ctrhgcdk54rABPlMnIf0TnW8=",
       "server": "zzq4dz7bonfjq3lxjsyw",
       "server_port": 4198,
@@ -139,10 +122,7 @@
       "type": "wireguard",
       "tag": "Berlin-a § 1",
       "detour": "Tehran-a § 0",
-      "local_address": [
-        "172.16.0.2/24",
-        "2606:4700:110:8b2e:29d6:466d:2066:a06/128"
-      ],
+      "local_address": ["172.16.0.2/24", "2606:4700:110:8b2e:29d6:466d:2066:a06/128"],
       "private_key": "AHzH5Oc8T2x6XN29Brk7uJt1HmhwgLWT0rSt8uBWXEo=",
       "server": "plkmc6gfqrcrtcjzgsoq",
       "server_port": 4500,
@@ -197,10 +177,7 @@
         "outbound": "direct"
       },
       {
-        "rule_set": [
-          "geoip-ir",
-          "geosite-ir"
-        ],
+        "rule_set": ["geoip-ir", "geosite-ir"],
         "outbound": "direct"
       }
     ],
