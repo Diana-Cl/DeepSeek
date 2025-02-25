@@ -66,8 +66,8 @@ jobs:
       - name: Commit changes if any
         if: failure()
         run: |
-          git config --local user.name "actions-user"
-          git config --local user.email "actions-user@gmail.com"
+          git config --global user.name "actions-user"
+          git config --global user.email "actions-user@gmail.com"
           git add -A
           git diff --quiet && git diff --staged --quiet || git commit -m "Prettified Code!" -m "Applied automatic formatting using Black and Prettier"
         continue-on-error: true
@@ -80,11 +80,11 @@ jobs:
 
       - name: Commit changes
         run: |
-          git config --local user.name "actions-user"
-          git config --local user.email "actions-user@gmail.com"
+          git config --local user.name "git@github.com"
+          git config --local user.email "org-135276904@github.com"
           git add -A
           if [[ -n $(git status --porcelain) ]]; then
-            git diff --quiet && git diff --staged --quiet || git commit -m "style: apply formatting and linting---Formatted with Prettier/Black and linted with ESLint/Ruff" -m "Prettified Code!"
+            git diff --quiet && git diff --staged --quiet || git commit -m "Prettified Code!---style: apply formatting and linting" -m "Formatted with Prettier/Black and linted with ESLint/Ruff" --author="Diana-Cl <135276904+Diana-Cl@users.noreply.github.com>"
             git push
           fi
         continue-on-error: true
