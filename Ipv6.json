@@ -51,20 +51,14 @@
       "tag": "⚪️Tehran",
       "name": "wg0",
       "mtu": 1300,
-      "address": [
-        "172.16.0.2/32",
-        "2606:4700:110:809f:775e:cbec:5c6d:d7b5/128"
-      ],
+      "address": ["172.16.0.2/32", "2606:4700:110:809f:775e:cbec:5c6d:d7b5/128"],
       "private_key": "2EOtDGJAmDD9R6G1+U2JGFjxMu+t+rj+Ii0jdoc2OWA=",
       "peers": [
         {
           "address": "162.159.195.33",
           "port": 4198,
           "public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
-          "allowed_ips": [
-            "0.0.0.0/0",
-            "::/0"
-          ],
+          "allowed_ips": ["0.0.0.0/0", "::/0"],
           "persistent_keepalive_interval": 30,
           "reserved": "sLtS"
         }
@@ -77,20 +71,14 @@
       "tag": "🟡Berlin",
       "name": "wg1",
       "mtu": 1280,
-      "address": [
-        "172.16.0.3/32",
-        "2606:4700:110:8b2e:29d6:466d:2066:a06/128"
-      ],
+      "address": ["172.16.0.3/32", "2606:4700:110:8b2e:29d6:466d:2066:a06/128"],
       "private_key": "8NFBgbhxyzveYYBMDf2ctrhgcdk54rABPlMnIf0TnW8=",
       "peers": [
         {
           "address": "188.114.96.214",
           "port": 8854,
           "public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
-          "allowed_ips": [
-            "0.0.0.0/0",
-            "::/0"
-          ],
+          "allowed_ips": ["0.0.0.0/0", "::/0"],
           "persistent_keepalive_interval": 30,
           "reserved": "H/GT"
         }
@@ -104,10 +92,7 @@
       "type": "tun",
       "tag": "tun-in",
       "mtu": 9000,
-      "address": [
-        "172.19.0.1/30",
-        "fdfe:dcba:9876::1/126"
-      ],
+      "address": ["172.19.0.1/30", "fdfe:dcba:9876::1/126"],
       "auto_route": true,
       "stack": "mixed",
       "platform": {
@@ -129,21 +114,13 @@
     {
       "type": "selector",
       "tag": "proxy",
-      "outbounds": [
-        "auto",
-        "direct",
-        "⚪️Tehran",
-        "🟡Berlin"
-      ],
+      "outbounds": ["auto", "direct", "⚪️Tehran", "🟡Berlin"],
       "default": "🟡Berlin"
     },
     {
       "type": "urltest",
       "tag": "auto",
-      "outbounds": [
-        "⚪️Tehran",
-        "🟡Berlin"
-      ],
+      "outbounds": ["⚪️Tehran", "🟡Berlin"],
       "url": "http://www.gstatic.com/generate_204",
       "tolerance": 50
     },
@@ -172,12 +149,7 @@
         "outbound": "proxy"
       },
       {
-        "rule_set": [
-          "geoip-private",
-          "geosite-private",
-          "geosite-ir",
-          "geoip-ir"
-        ],
+        "rule_set": ["geoip-private", "geosite-private", "geosite-ir", "geoip-ir"],
         "outbound": "direct"
       },
       {
