@@ -62,16 +62,6 @@ jobs:
           npm run format:py
           npm run lint:py
 
-      # Commit changes if any
-      - name: Commit changes if any
-        if: failure()
-        run: |
-          git config --global user.name "actions-user"
-          git config --global user.email "actions-user@gmail.com"
-          git add -A
-          git diff --quiet && git diff --staged --quiet || git commit -m "Prettified Code!" -m "Applied automatic formatting using Black and Prettier"
-        continue-on-error: true
-
       - name: Run Formatting and Linting for JavaScript
         if: matrix.language == 'javascript'
         run: |
@@ -80,8 +70,8 @@ jobs:
 
       - name: Commit changes
         run: |
-          git config --local user.name "git@github.com"
-          git config --local user.email "org-135276904@github.com"
+          git config --local user.name "Github Actions"
+          git config --local user.email "actions@github.com"
           git add -A
           if [[ -n $(git status --porcelain) ]]; then
             git diff --quiet && git diff --staged --quiet || git commit -m "Prettified Code!---style: apply formatting and linting" -m "Formatted with Prettier/Black and linted with ESLint/Ruff" --author="Diana-Cl <135276904+Diana-Cl@users.noreply.github.com>"
