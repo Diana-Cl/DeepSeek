@@ -10,15 +10,13 @@
         "tag": "proxy-dns",
         "detour": "proxy",
         "domain_resolver": "local-dns",
-        "server": "185.228.168.9",
-        "server_port": 0
+        "server": "185.228.168.9"
       },
       {
         "type": "tcp",
         "tag": "local-dns",
         "detour": "direct",
-        "server": "8.8.4.4",
-        "server_port": 0
+        "server": "8.8.4.4"
       },
       {
         "type": "local",
@@ -51,43 +49,55 @@
   "endpoints": [
     {
       "type": "wireguard",
-      "tag": "\u26aa\ufe0fTehran",
+      "tag": "⚪️Tehran",
       "name": "wg0",
       "mtu": 1280,
-      "address": ["172.16.0.2/32", "2606:4700:110:8735:bb29:91bc:1c82:aa73/128"],
+      "address": [
+        "172.16.0.2/32",
+        "2606:4700:110:8735:bb29:91bc:1c82:aa73/128"
+      ],
       "private_key": "+KMEvmIoLcLtxaJOF+YtytjYr/tl0LvQbQxyra3iQ0c=",
       "peers": [
         {
           "address": "188.114.96.214",
           "port": 8854,
           "public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
-          "allowed_ips": ["0.0.0.0/0", "::/0"],
+          "allowed_ips": [
+            "0.0.0.0/0",
+            "::/0"
+          ],
           "persistent_keepalive_interval": 30,
-          "reserved": [30, 115, 248]
+          "reserved": "HnP4"
         }
       ],
-      "detour": "direct",
-      "workers": 2
+      "workers": 2,
+      "detour": "direct"
     },
     {
       "type": "wireguard",
-      "tag": "\ud83d\udfe1Berlin",
+      "tag": "🟡Berlin",
       "name": "wg0",
       "mtu": 1280,
-      "address": ["172.16.0.2/32", "2606:4700:110:8735:bb29:91bc:1c82:aa73/128"],
+      "address": [
+        "172.16.0.2/32",
+        "2606:4700:110:8735:bb29:91bc:1c82:aa73/128"
+      ],
       "private_key": "yHWZKxsp6VzCqrrnwjfmwo5539F/VkJROfipMrGUM3M=",
       "peers": [
         {
           "address": "188.114.99.22",
           "port": 4233,
           "public_key": "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=",
-          "allowed_ips": ["0.0.0.0/0", "::/0"],
+          "allowed_ips": [
+            "0.0.0.0/0",
+            "::/0"
+          ],
           "persistent_keepalive_interval": 30,
-          "reserved": [209, 175, 206]
+          "reserved": "0a/O"
         }
       ],
-      "detour": "\u26aa\ufe0fTehran",
-      "workers": 2
+      "workers": 2,
+      "detour": "⚪️Tehran"
     }
   ],
   "inbounds": [
@@ -118,28 +128,29 @@
     {
       "type": "selector",
       "tag": "proxy",
-      "outbounds": ["\u26aa\ufe0fTehran", "\ud83d\udfe1Berlin"],
-      "default": "\ud83d\udfe1Berlin"
+      "outbounds": [
+        "⚪️Tehran",
+        "🟡Berlin"
+      ],
+      "default": "🟡Berlin"
     },
     {
       "type": "urltest",
       "tag": "auto",
-      "outbounds": ["\u26aa\ufe0fTehran", "\ud83d\udfe1Berlin"],
+      "outbounds": [
+        "⚪️Tehran",
+        "🟡Berlin"
+      ],
       "url": "https://www.gstatic.com/generate_204",
       "tolerance": 50
     },
     {
       "type": "direct",
       "tag": "direct",
-      "domain_strategy": "ipv4_only"
+      "domain_strategy": "prefer_ipv4"
     }
   ],
   "route": {
-    "default_domain_resolver": {
-      "server": "local-dns",
-      "rewrite_tll": 60,
-      "client_subnet": "8.8.4.4"
-    },
     "rules": [
       {
         "action": "sniff",
@@ -161,13 +172,17 @@
         "override_port": 443
       },
       {
-        "rule_set": ["geoip-private", "geosite-private", "geosite-ir", "geoip-ir"],
+        "rule_set": [
+          "geoip-private",
+          "geosite-private",
+          "geosite-ir",
+          "geoip-ir"
+        ],
         "action": "direct"
       },
       {
         "rule_set": "geosite-ads",
-        "action": "reject",
-        "method": "default"
+        "action": "reject"
       }
     ],
     "rule_set": [
@@ -209,6 +224,14 @@
     ],
     "final": "proxy",
     "auto_detect_interface": true,
-    "override_android_vpn": true
+    "default_domain_resolver": {
+      "server": "local-dns",
+      "client_subnet": "1.1.1.1"
+    }
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true
+    }
   }
 }
