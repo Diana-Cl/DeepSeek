@@ -1,5 +1,6 @@
 const defaultdoh = 'https://cloudflare-dns.com/dns-query';
-const csp = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';";
+const csp =
+  'default-src \'self\'; script-src \'self\' \'unsafe-inline\'; style-src \'self\' \'unsafe-inline\';';
 const securityHeaders = {
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'DENY',
@@ -14,7 +15,7 @@ addEventListener('fetch', event => {
 
 async function handleRequest(request) {
   const url = new URL(request.url);
-  
+
   if (typeof SETTINGS !== 'object') {
     return new Response(errorHtml, { headers: { 'Content-Type': 'text/html' }, status: 500 });
   }
@@ -30,11 +31,23 @@ async function handleRequest(request) {
     case '/reset-doh-address':
       return request.method === 'POST' ? resetDohAddress() : notFound();
     case '/set-password':
-      return request.method === 'GET' ? setPasswordGet(request) : request.method === 'POST' ? setPasswordPost(request) : notFound();
+      return request.method === 'GET'
+        ? setPasswordGet(request)
+        : request.method === 'POST'
+          ? setPasswordPost(request)
+          : notFound();
     case '/change-password':
-      return request.method === 'GET' ? changePasswordGet(request, sessionToken, storedSessionToken) : request.method === 'POST' ? changePasswordPost(request, sessionToken, storedSessionToken) : notFound();
+      return request.method === 'GET'
+        ? changePasswordGet(request, sessionToken, storedSessionToken)
+        : request.method === 'POST'
+          ? changePasswordPost(request, sessionToken, storedSessionToken)
+          : notFound();
     case '/login':
-      return request.method === 'GET' ? loginGet(request) : request.method === 'POST' ? loginPost(request) : notFound();
+      return request.method === 'GET'
+        ? loginGet(request)
+        : request.method === 'POST'
+          ? loginPost(request)
+          : notFound();
     case '/logout':
       return request.method === 'POST' ? logout() : notFound();
     case '/':
@@ -53,41 +66,61 @@ async function handleDnsQuery(request) {
     body: dnsQuery,
   });
 
-  return new Response(dnsResponse.body, { headers: { 'Content-Type': 'application/dns-message', ...securityHeaders } });
+  return new Response(dnsResponse.body, {
+    headers: { 'Content-Type': 'application/dns-message', ...securityHeaders },
+  });
 }
 
 async function setDohAddress(request) {
   try {
     const { dohaddress } = await request.json();
-    if (!isValidUrl(dohaddress)) return new Response('Invalid DNS over HTTPS Address', { status: 400, headers: securityHeaders });
+    if (!isValidUrl(dohaddress))
+      return new Response('Invalid DNS over HTTPS Address', {
+        status: 400,
+        headers: securityHeaders,
+      });
     await SETTINGS.put('dohaddress', dohaddress);
     return new Response('DNS over HTTPS Address saved!', { status: 200, headers: securityHeaders });
   } catch {
-    return new Response('Failed to save DNS over HTTPS Address', { status: 500, headers: securityHeaders });
+    return new Response('Failed to save DNS over HTTPS Address', {
+      status: 500,
+      headers: securityHeaders,
+    });
   }
 }
 
 async function resetDohAddress() {
   try {
     await SETTINGS.put('dohaddress', defaultdoh);
-    return new Response('DNS over HTTPS Address reset to default!', { status: 200, headers: securityHeaders });
+    return new Response('DNS over HTTPS Address reset to default!', {
+      status: 200,
+      headers: securityHeaders,
+    });
   } catch {
-    return new Response('Failed to reset DNS over HTTPS Address', { status: 500, headers: securityHeaders });
+    return new Response('Failed to reset DNS over HTTPS Address', {
+      status: 500,
+      headers: securityHeaders,
+    });
   }
 }
 
 async function setPasswordGet(request) {
   const storedPassword = await SETTINGS.get('password');
-  if (storedPassword) return Response.redirect(`${request.url.protocol}//${request.url.host}/`, 302);
-  return new Response(setPasswordHtml, { headers: { 'Content-Type': 'text/html', ...securityHeaders } });
+  if (storedPassword)
+    return Response.redirect(`${request.url.protocol}//${request.url.host}/`, 302);
+  return new Response(setPasswordHtml, {
+    headers: { 'Content-Type': 'text/html', ...securityHeaders },
+  });
 }
 
 async function setPasswordPost(request) {
   const storedPassword = await SETTINGS.get('password');
-  if (storedPassword) return new Response('Password already set', { status: 400, headers: securityHeaders });
+  if (storedPassword)
+    return new Response('Password already set', { status: 400, headers: securityHeaders });
   try {
     const { password, confirmPassword } = await request.json();
-    if (password !== confirmPassword) return new Response('Passwords do not match', { status: 400, headers: securityHeaders });
+    if (password !== confirmPassword)
+      return new Response('Passwords do not match', { status: 400, headers: securityHeaders });
     await SETTINGS.put('password', password);
     return new Response('Password set!', { status: 200, headers: securityHeaders });
   } catch {
@@ -96,17 +129,26 @@ async function setPasswordPost(request) {
 }
 
 async function changePasswordGet(request, sessionToken, storedSessionToken) {
-  if (!sessionToken || sessionToken !== storedSessionToken) return Response.redirect(`${request.url.protocol}//${request.url.host}/login`, 302);
-  return new Response(changePasswordHtml, { headers: { 'Content-Type': 'text/html', ...securityHeaders } });
+  if (!sessionToken || sessionToken !== storedSessionToken)
+    return Response.redirect(`${request.url.protocol}//${request.url.host}/login`, 302);
+  return new Response(changePasswordHtml, {
+    headers: { 'Content-Type': 'text/html', ...securityHeaders },
+  });
 }
 
 async function changePasswordPost(request, sessionToken, storedSessionToken) {
-  if (!sessionToken || sessionToken !== storedSessionToken) return Response.redirect(`${request.url.protocol}//${request.url.host}/login`, 302);
+  if (!sessionToken || sessionToken !== storedSessionToken)
+    return Response.redirect(`${request.url.protocol}//${request.url.host}/login`, 302);
   try {
     const { currentPassword, newPassword, confirmNewPassword } = await request.json();
     const storedPassword = await SETTINGS.get('password');
-    if (currentPassword !== storedPassword) return new Response('Current password is incorrect', { status: 400, headers: securityHeaders });
-    if (newPassword !== confirmNewPassword) return new Response('New passwords do not match', { status: 400, headers: securityHeaders });
+    if (currentPassword !== storedPassword)
+      return new Response('Current password is incorrect', {
+        status: 400,
+        headers: securityHeaders,
+      });
+    if (newPassword !== confirmNewPassword)
+      return new Response('New passwords do not match', { status: 400, headers: securityHeaders });
     await SETTINGS.put('password', newPassword);
     return new Response('Password changed!', { status: 200, headers: securityHeaders });
   } catch {
@@ -117,14 +159,17 @@ async function changePasswordPost(request, sessionToken, storedSessionToken) {
 async function loginGet(request) {
   const sessionToken = request.headers.get('cookie')?.match(/sessionToken=([^;]+)/)?.[1];
   const storedPassword = await SETTINGS.get('password');
-  if (!storedPassword) return Response.redirect(`${request.url.protocol}//${request.url.host}/set-password`, 302);
-  if (sessionToken && sessionToken === storedSessionToken) return Response.redirect(`${request.url.protocol}//${request.url.host}/`, 302);
+  if (!storedPassword)
+    return Response.redirect(`${request.url.protocol}//${request.url.host}/set-password`, 302);
+  if (sessionToken && sessionToken === storedSessionToken)
+    return Response.redirect(`${request.url.protocol}//${request.url.host}/`, 302);
   return new Response(loginHtml, { headers: { 'Content-Type': 'text/html', ...securityHeaders } });
 }
 
 async function loginPost(request) {
   const sessionToken = request.headers.get('cookie')?.match(/sessionToken=([^;]+)/)?.[1];
-  if (sessionToken && sessionToken === storedSessionToken) return Response.redirect(`${request.url.protocol}//${request.url.host}/`, 302);
+  if (sessionToken && sessionToken === storedSessionToken)
+    return Response.redirect(`${request.url.protocol}//${request.url.host}/`, 302);
   try {
     const { password } = await request.json();
     const storedPassword = await SETTINGS.get('password');
@@ -162,11 +207,16 @@ async function logout() {
 }
 
 async function handleRoot(request, sessionToken, storedSessionToken) {
-  if (!sessionToken || sessionToken !== storedSessionToken) return Response.redirect(`${request.url.protocol}//${request.url.host}/login`, 302);
+  if (!sessionToken || sessionToken !== storedSessionToken)
+    return Response.redirect(`${request.url.protocol}//${request.url.host}/login`, 302);
   const currentdohaddress = await getdohaddress();
   const origin = `${request.url.protocol}//${request.url.host}`;
-  const htmlContent = html.replace('{{dohaddress}}', currentdohaddress).replace('{{origin}}', origin);
-  return new Response(htmlContent, { headers: { 'Content-Type': 'text/html', ...securityHeaders } });
+  const htmlContent = html
+    .replace('{{dohaddress}}', currentdohaddress)
+    .replace('{{origin}}', origin);
+  return new Response(htmlContent, {
+    headers: { 'Content-Type': 'text/html', ...securityHeaders },
+  });
 }
 
 function isValidUrl(string) {
@@ -179,9 +229,8 @@ function isValidUrl(string) {
 }
 
 function generateSessionToken() {
-  return Math.random().toString(36).substring(2) + Math.random().toString(36).substring
+  return Math.random().toString(36).substring(2) + Math.random().toString(36).substring;
 }
-
 
 const setPasswordHtml = `
 <!DOCTYPE html>
